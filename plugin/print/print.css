@@ -1,0 +1,78 @@
+@charset "utf-8";
+/* Print css */
+
+html{background-image:none; background-color: #fff;}
+body{
+	margin:0px; 
+	padding:0px; 
+	overflow:auto; 
+	height:auto;
+	font-size:13px
+}
+
+
+.unprintable{display:none}
+.toolbox_warper, .toolbox{display:none}
+.ui-helper-hidden-accessible{display:none}
+.ui-button{ display: none}
+.showforprint{display:block;}
+button{display:none}
+table.tablesorter, table.result {table-layout:auto;}
+span.ui-combobox{display:none}
+table.tablesorter thead tr .header  {background-image:none; font-size:120%}
+.debug_mode_label{ display:none}
+.fault_input {background-color:#FFF}
+
+/*.print_footer {text-align:center; page-break-after:always}
+.print_header{text-align:center; }*/
+
+table { page-break-inside:auto }
+tr    { page-break-inside:avoid !important; page-break-after:auto }
+td    { page-break-inside:avoid !important; page-break-after:auto }
+thead { display:table-header-group }
+tfoot { display:table-footer-group }
+
+h1, h2, h3, h4, h5, h6{ page-break-after: avoid;}
+p, blockquote, ul, ol, dl, pre{page-break-inside: avoid}
+	
+.page{height: 100%;}
+/*.page_content { padding-bottom: 150px;}*/
+.page_footer { text-align:center; width:100%; display:block; clear: both;}
+.page_header {page-break-after:avoid;text-align:center;}
+.page_header img.header	{width:100%}
+.page_footer img{width:100%}
+
+#BrowserPrintDefaults{display:none}
+@media print and (color){
+	body{-webkit-print-color-adjust: exact; -moz-print-color-adjust: exact; position:relative}
+	.page_footer{
+		position: fixed;
+        bottom: 0px;
+		left:0px;
+		width:100%;
+		height:35mm;
+		page-break-after:auto;
+	}
+	.page_content { padding-bottom: 5cm;}
+	.page {
+		size: A4;
+		margin:5mm !important;
+		page-break-after: auto;
+		page-break-inside:avoid;
+		page:page
+	}
+
+}
+
+
+/*@page page {
+	size: A4;
+	padding:0px;
+	margin:0 !important;
+	mso-header-margin:5mm; 
+    mso-footer-margin:5mm; 
+    mso-paper-source:0;
+	page-break-after: always;
+	page-break-inside:avoid;
+	/*position:relative;
+}*/

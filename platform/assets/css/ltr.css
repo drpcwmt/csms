@@ -1,0 +1,62 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+	font-family:  verdana, Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	direction:ltr;
+}
+
+fieldset{ text-align:left}
+
+.ui-widget {
+    font-family:verdana, cursive, Tahoma, Geneva, sans-serif;
+}
+
+.toolbox *{	float:left;}
+
+.nav li{float:left;}
+.nav li span {	right:10px;}
+.nav ul ul{	right:-142px;}
+
+#tools_ul li {float:right;}
+
+.material_list li{
+	padding:5px 5px 5px 20px ;
+	margin-bottom:5px;
+}
+
+table.tablesorter thead tr .header { background-position:right center;}
+
+#new_week_day li { float:left; }
+
+.reverse_align { text-align:right}
+.def_align{ text-align:left}
+.page_title{right: 0;}
+.def_float{float:left}
+.rev_float{float:right}
+.ui-tabs .ui-tabs-nav li {  float: left; }
+.material_list { padding:0px 20px 0px 0px; }
+.regle{ direction:rtl}
+.ui-icon-triangle-1-e { background-position:-32px -16px;}
+.ui-icon-triangle-1-w { background-position:-96px -16px;}
+
+/* VER 2 */
+#calender_count_div{right:0px;}
+.icon_button { float:left}
+
+.ui-corner-left{ border-bottom-left-radius: 5px; border-top-left-radius: 5px; border-bottom-right-radius: 0px; border-top-right-radius: 0px;}
+.ui-corner-right{ border-bottom-right-radius: 5px; border-top-right-radius: 5px; border-bottom-left-radius: 0px; border-top-left-radius: 0px;}
+.ui-buttonset {direction:ltr}
+
+.ui-combobox-toggle {
+	float:right !important;
+}
+
+.listMenuUl ul {margin:2px 0px 5px 15px}
+
+.summary_title{ display:block; padding:5px 0px 5px 25px }
+
+.ui-dialog-titlebar-buttonpane{right:0.3em}
+.ui-dialog-titlebar-buttonpane a{float:right}
+
+.medical_hisory_ul a.delete_medical{ right: 5px}

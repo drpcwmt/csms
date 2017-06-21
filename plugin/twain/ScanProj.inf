@@ -1,0 +1,9 @@
+;Delphi-generated INF file for ScanProj.ocx
+[Add.Code]
+ScanProj.ocx=ScanProj.ocx
+
+[ScanProj.ocx]
+file=./ScanProj.cab
+clsid={61EC4ECB-81B6-4309-B7B5-8F7755830EEF}
+RegisterServer=yes
+FileVersion=1,0,16,1
