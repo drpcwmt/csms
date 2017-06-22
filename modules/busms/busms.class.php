@@ -7,7 +7,7 @@ class BusMS extends CSMS{
 
 	public $type = 'busms';
 	
-	private $thisTemplatePath = 'modules/accms/templates';
+	private $thisTemplatePath = 'modules/busms/templates';
 
 	public function __construct($id=''){
 		if($id != ''){
@@ -15,6 +15,7 @@ class BusMS extends CSMS{
 				$this->ip = $id->ip;
 				$this->database = $id->database;
 				$this->url = $id->url;	
+				$this->id = isset($id->id) ? $id->id : 0;
 				parent::__construct($this);
 			} else {
 				parent::__construct($id);

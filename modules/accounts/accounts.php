@@ -1,5 +1,6 @@
 <?php
 
+
 	// Load accounting tree
 if(isset($_GET['tree'])){
 	if($prvlg->_chk('tree_read')){

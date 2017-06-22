@@ -102,6 +102,8 @@ function do_query_obj($sql, $database='', $server_ip=''){
 			echo "<b>$sql</b><br />";
 			echo $e->getMessage();
 		}
+		$link = null;
+		return false;
 	}
 }
 
@@ -174,7 +176,7 @@ function do_insert_obj($row, $table, $database='', $server_ip=''){
 			return true;
 		}
 	} catch(PDOException $e){
-		if($this_system->getSettings('debug_mode') == 1){
+		if($this_system->getSettings('debug_mode') == '1'){
 			echo "<b>$sql</b><br />";
 			echo $e->getMessage();
 		}
@@ -203,6 +205,7 @@ function do_update_obj($values, $where, $table,  $database='', $server_ip=''){
 			)
 		);
 		$commom_fields = getTableFields( $table, $database, $server_ip);
+
 		$affect_common_fields = array();
 		foreach($values as $key => $value){
 			if(in_array($key, $commom_fields)){
@@ -221,22 +224,14 @@ function do_update_obj($values, $where, $table,  $database='', $server_ip=''){
 		}	
 		if(count($affect_common_fields) > 0){
 			$sql = "UPDATE $table SET ".implode($affect_common_fields, ',')." WHERE ".$where;
-			//echo $sql;
 			$result = $link->exec($sql);
 		} else {
 			$result = true;
 		}
-		if($result != false){
-			//$_SESSION['last_sql_modifield_rows'] = $result->rowCount();
-			$link=null;
-			return true;
-		} else {
-			$link=null;
-			$_SESSION['last_sql_modifield_rows'] = 0;
-			return false;
-		}
+		$link=null;
+		return $result;
 	} catch(PDOException $e){
-		if($this_system->getSettings('debug_mode') == 1){
+		if($this_system->getSettings('debug_mode') == '1'){
 			echo "<b>$sql</b><br />";
 			echo $e->getMessage();
 		}
@@ -272,7 +267,7 @@ function do_delete_obj($where, $table, $database='', $server_ip=''){
 			return true;
 		}
 	} catch(PDOException $e){
-		if($this_system->getSettings('debug_mode') == 1){
+		if($this_system->getSettings('debug_mode') == '1'){
 			echo "<b>$sql</b><br />";
 			echo $e->getMessage();
 		}

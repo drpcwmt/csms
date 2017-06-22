@@ -38,7 +38,7 @@ function initiateJquery(){
 	iniAceEditor();
 	if(configFile.MapsApiKey && typeof google === 'object' && typeof google.maps === 'object'){
 		//alert('gogle');
-		iniGoogleMap();
+		//iniGoogleMap();
 	}
 }
 
@@ -186,7 +186,7 @@ function iniSortableList(){
 						});
 						$.ajax({
 							dataType: "json",
-							url: 'index.php?common=sortable_backend&sort',
+							url: 'index.php?plugin=sortable&sort',
 							type: 'POST',
 							data: "itemOrder="+itemOrder.join(',')+"&items="+items,
 							success: function(ans, textStatus, xhr){

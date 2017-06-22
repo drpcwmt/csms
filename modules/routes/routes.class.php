@@ -58,8 +58,8 @@ class Routes{
 	}
 	
 	public function getFees($sms, $year){
-		$group = $this->getGroup();
-		return $group->getFees($sms, $year);
+		$busFees = new BusFees($sms, $year);
+		return $busFees->getFees();
 	}
 	
 	public function getParcour($r='m'){ // morning OR e  for evening

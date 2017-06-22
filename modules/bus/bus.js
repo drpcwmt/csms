@@ -1,96 +1,117 @@
-// JavaScript Document
+function openBusMain($btn) {
+	var busId = $btn.attr('bus_id')
+	var module ={};
+	module.name = 'bus';
+	module.data = "";
+	module.title = getLang('buss');
+	module.div = '#resources_content';
+	// module.callback = function(){ iniBus(driverId) }
+	loadModule(module)
+}
+function openBus($inp) {
+	var busId = $inp.attr('bus_id')
+	var module ={};
+	module.name = 'bus';
+	module.data = "bus_id="+busId;
+	module.title = getLang('buss');
+	module.div = '#bus_content';
+	// module.callback = function(){ iniBus(driverId) }
+	loadModule(module)
+}
 
-function newRouteFees($but){
-	var groupId = $but.attr('group_id');
-	var busmsId = $but.attr('busms_id');
-	var smsId = $but.attr('sms_id');
-	var module ={
-		name: 'bus',
-		data: 'new_fees&busms_id='+busmsId+'&sms_id='+smsId+'&group_id='+groupId,
-		title: getLang('bus_fees'),
-		div: 'MS_dialog-new_fees',
-		
-	}
-	dialogOpt = {
-		buttons: [{ 
-		text: getLang('save'), 
-		click: function() { 
-			if(validateForm('#MS_dialog-new_fees form')){
-				var total = 0;
-				$('#MS_dialog-new_fees form').find('input.payment_values').each(function(){
-					if($(this).val() != ''){
-						total = total + parseInt($(this).val());
+/*function iniBus(busId){
+	var module ={};
+	module.name = 'routes';
+	module.data = "w=bus_id-"+busId;
+	module.title = getLang('routes');
+	module.div = '#bus_route_table';
+	loadModuleToDiv(new Array(module), "")
+}*/
+
+function deleteBus($delete_btn){
+ 	var html = $('#bus_name_title').clone();
+	var bus_id = $delete_btn.attr('bus_id');
+
+	var dialogOpt = {
+		width:470,
+		height:170,
+		div:'MS_dialog_delete_bus',
+		title:getLang('buss'),
+		buttons: [{
+			text: getLang('delete'),
+			click: function() {
+				var del  = {
+					name: 'bus',
+					param: 'del_bus',
+					post: 'id=' + bus_id,
+					title: getLang('buss'),
+					callback: function(){
+						$('#resource_list li[bus_id="' + bus_id  + '"]' ).remove();
+						openBus($('#resource_list li').first());
+						$('#resource_list li').first().addClass('ui-state-active');
+						$('#MS_dialog_delete_bus').dialog('close');
 					}
-				});
-				if(total == parseInt($('#MS_dialog-new_fees input[name="value"]').val())){
-					var submitSave = {
+				}
+				getModuleJson(del);
+			}
+		},{
+			text: getLang('cancel'),
+			click: function() {
+				$(this).dialog('close');
+			}
+		}]
+	}
+	openHtmlDialog(html, dialogOpt);
+}
+
+function newBus($but) {
+
+	var dialogOpt = {
+		width:600,
+		height:500,
+		title:getLang('buss'),
+		buttons: [{
+			text: getLang('add'),
+			click: function() {
+				if(validateForm('#new_bus_dialog form')){
+					var save  = {
 						name: 'bus',
-						param: 'new_fees&busms_id='+busmsId+'&sms_id='+smsId+'&save&group_id='+groupId,
-						post: $('#MS_dialog-new_fees form').serialize(),
-						callback: function(){
-							var $tab = $but.parents('.ui-tabs-panel').eq(1);
-							openBusGroup($tab.find('.list_menu li.ui-state-active'));
-							$('#MS_dialog-new_fees').dialog('close');
+						param: 'save',
+						post: $('#new_bus_dialog form').serialize(),
+						title: getLang('buss'),
+						callback: function(answer){
+							$('#new_bus_dialog').dialog('close');
+							$('#resource_list').removeClass('ui-state-active');
+							var $li = $('<li action="openBus" bus_id="'+answer.id+'" class="clickable hoverable ui-state-default ui-corner-all ui-state-active">'+answer.code+'</li>');
+							$('#resource_list').append($li);
+							openBus($li);
 						}
 					}
-					getModuleJson(submitSave);
-				} else {
-					MS_alert('<img src="assets/img/error.png"><h2>'+getLang('payment_dont_match')+'</h2>');
+					getModuleJson(save);
 				}
-			} else {return false;}
-
-		}
-	}, { 
-		text: getLang('close'), 
-		click: function() { 
-			$(this).dialog('close');
-		}
-	}],
-		width:550,
-		height:600,
-		minim:false,
-		modal: true,
-		callback: function(){
-			loadModuleJS('accounts');
-			formatAccountCode($('#MS_dialog-new_fees'))
-		}
+			}
+		},{
+			text: getLang('cancel'),
+			click: function() {
+				$(this).dialog('close');
+			}
+		}]
 	}
-	openAjaxDialog(module, dialogOpt);	
-}
-
-function applyBusFeesToall($but){
-	var $form = $but.parents('form');
-	var $table = $form.find('.tableinput');
-	var $first_inp = $table.find('input').eq(0);
-	var first_inp_val = $first_inp.val();
-	$table.find('input').each(function(){
-		$(this).attr('checked', true);
-	});
-}
-
-function deleteBusFees($but){
-	var fees_id = $but.attr('fees_id');
-	var smsId = $but.attr('sms_id');
-	var deleteFees = {
-		name: 'bus',
-		param: 'del_fees&sms_id='+smsId,
-		post: 'fees_id='+fees_id,
-		callback: function(){
-			var $tr = $but.parents('tr').eq(0);
-			$tr.fadeOut().remove();
-		}
-	}
-	getModuleJson(deleteFees);
-}
-
-function openBusGroup($but){
-	var groupId = $but.attr('itemid');
-	var busmsId= $but.attr('busms_id');
-	var smsId = $but.attr('sms_id');
-	var module = {};
+	var module ={};
 	module.name = 'bus';
-	module.data = 'group_id='+groupId+'&busms_id='+busmsId+'&sms_id='+smsId;
-	module.title = getLang('bus_fees');
-	module.div = '#bus_resource_content';
-	loadModule(module);
+	module.data = "new_bus";
+	module.title = getLang('buss');
+	module.div = 'new_bus_dialog';
+
+	openAjaxDialog(module, dialogOpt);
+}
+
+function saveBus(){
+	var save  = {
+		name: 'bus',
+		param: 'save',
+		post: $('#bus_form').serialize(),
+		title: getLang('buss'),
+	}
+	getModuleJson(save);
 }
