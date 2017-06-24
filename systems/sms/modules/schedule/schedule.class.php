@@ -17,20 +17,21 @@ class schedule{
 	$date_end = false,
 	$spc_date_begin=false,
 	$spc_date_end = false,
-	$static_array = array('prof', 'hall', 'tool');
+	$static_array = array('prof', 'hall', 'tools');
 
 	
 	public function __construct($con, $con_id){
-		global $MS_settings;
+		global $this_system;
 		$this->con = $con;
 		$this->con_id = $con_id;
-		$this->first_day_week =  $MS_settings['first_day'];
-		$this->day_time_begin =  $MS_settings['day_time_begin'];
-		$this->day_time_end =  $MS_settings['day_time_end'];
-		$weekend_str = $MS_settings['weekend'];
+		$this->first_day_week =  $this_system->getSettings('first_day');
+		$this->day_time_begin =  $this_system->getSettings('day_time_begin');
+		$this->day_time_end =  $this_system->getSettings('day_time_end');
+		$weekend_str = $this_system->getSettings('weekend');
 		$this->week_ends = strpos($weekend_str, ',') !== false ? explode(',', $weekend_str) : array($weekend_str);
-		$this->date_begin =  getYearSetting('begin_date');
-		$this->date_end =  getYearSetting('end_date');
+		$year = getNowYear();
+		$this->date_begin =  $year->begin_date;
+		$this->date_end = $year->end_date;
 	}
 	
 	// main function load schedule holder and current week

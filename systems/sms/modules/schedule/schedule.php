@@ -4,7 +4,7 @@
 ## con => level, class, group, students
 
 $thisTemplatePath = "modules/schedule/templates";
-$static_array = array('prof', 'hall', 'tool');
+//$static_array = array('prof', 'hall', 'tools');
 
 /***************** DEFAULT body***************************************/
 if(isset($_REQUEST['con'])){
@@ -14,10 +14,10 @@ if(isset($_REQUEST['con'])){
 	if(($con=='level' && getPrvlg('schedule_level_read')) 
 		|| ($con=='class' && getPrvlg('schedule_class_read')) 
 		|| ($con=='group' && getPrvlg('schedule_group_read')) 
-		|| ($con=='student' && getPrvlg('schedule_std_read')) 
+		|| ($con=='student' && (getPrvlg('schedule_std_read') || $con_id=$_SESSION['user_id']) ) 
 		|| ($con=='prof' && (getPrvlg('resource_read_profs') || $con_id=$_SESSION['user_id']) ) 
 		|| ($con=='hall' && getPrvlg('resource_read_halls')) 
-		|| ($con=='tool' && getPrvlg('resource_read_tools')) ){
+		|| ($con=='tools' && getPrvlg('resource_read_tools')) ){
 		$read = true;
 	} else {
 		echo write_error($lang['no_privilege']);
@@ -32,7 +32,7 @@ if(isset($_REQUEST['con'])){
 		|| ($con=='student' && getPrvlg('schedule_std_write')) 
 		|| ($con=='prof' && getPrvlg('resource_edit_profs')) 
 		|| ($con=='hall' && getPrvlg('resource_edit_halls'))
-		|| ($con=='tool' && getPrvlg('resource_edit_tools'))){
+		|| ($con=='tools' && getPrvlg('resource_edit_tools'))){
 		$schedule->update_auth = true;
 	} else {
 		$schedule->update_auth = false;
